@@ -1,0 +1,10 @@
+D:\cSHARP 2\AT2WikiApp\bin\Debug\AT2WikiApp.exe.config
+D:\cSHARP 2\AT2WikiApp\bin\Debug\AT2WikiApp.exe
+D:\cSHARP 2\AT2WikiApp\bin\Debug\AT2WikiApp.pdb
+D:\cSHARP 2\AT2WikiApp\obj\Debug\AT2WikiApp.csproj.AssemblyReference.cache
+D:\cSHARP 2\AT2WikiApp\obj\Debug\AT2WikiApp.Form1.resources
+D:\cSHARP 2\AT2WikiApp\obj\Debug\AT2WikiApp.Properties.Resources.resources
+D:\cSHARP 2\AT2WikiApp\obj\Debug\AT2WikiApp.csproj.GenerateResource.cache
+D:\cSHARP 2\AT2WikiApp\obj\Debug\AT2WikiApp.csproj.CoreCompileInputs.cache
+D:\cSHARP 2\AT2WikiApp\obj\Debug\AT2WikiApp.exe
+D:\cSHARP 2\AT2WikiApp\obj\Debug\AT2WikiApp.pdb
