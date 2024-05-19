@@ -36,7 +36,7 @@
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.NameLabel = new System.Windows.Forms.Label();
             this.DeleteButton = new System.Windows.Forms.Button();
-            this.ButtonSearch = new System.Windows.Forms.Button();
+            this.SearchButton = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Category = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -48,7 +48,6 @@
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.labelStructure = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.SuspendLayout();
             // 
             // CategoryBox
@@ -117,7 +116,6 @@
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(137, 20);
             this.textBoxName.TabIndex = 5;
-            this.textBoxName.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxName_DoubleClick);
             // 
             // NameLabel
             // 
@@ -136,17 +134,16 @@
             this.DeleteButton.TabIndex = 7;
             this.DeleteButton.Text = "DELETE";
             this.DeleteButton.UseVisualStyleBackColor = true;
-            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click_1);
             // 
-            // ButtonSearch
+            // SearchButton
             // 
-            this.ButtonSearch.Location = new System.Drawing.Point(478, 34);
-            this.ButtonSearch.Name = "ButtonSearch";
-            this.ButtonSearch.Size = new System.Drawing.Size(66, 23);
-            this.ButtonSearch.TabIndex = 8;
-            this.ButtonSearch.Text = "Search";
-            this.ButtonSearch.UseVisualStyleBackColor = true;
-            this.ButtonSearch.Click += new System.EventHandler(this.SearchButton_Click);
+            this.SearchButton.Location = new System.Drawing.Point(478, 34);
+            this.SearchButton.Name = "SearchButton";
+            this.SearchButton.Size = new System.Drawing.Size(66, 23);
+            this.SearchButton.TabIndex = 8;
+            this.SearchButton.Text = "Search";
+            this.SearchButton.UseVisualStyleBackColor = true;
+            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
             // listView1
             // 
@@ -160,7 +157,6 @@
             this.listView1.TabIndex = 9;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // Name
             // 
@@ -197,7 +193,6 @@
             this.SaveButton.TabIndex = 12;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // EditButton
             // 
@@ -207,7 +202,6 @@
             this.EditButton.TabIndex = 13;
             this.EditButton.Text = "EDIT";
             this.EditButton.UseVisualStyleBackColor = true;
-            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
             // OpenButton
             // 
@@ -217,7 +211,6 @@
             this.OpenButton.TabIndex = 14;
             this.OpenButton.Text = "Open";
             this.OpenButton.UseVisualStyleBackColor = true;
-            this.OpenButton.Click += new System.EventHandler(this.OpenButton_Click);
             // 
             // textBoxSearch
             // 
@@ -243,20 +236,11 @@
             this.label1.TabIndex = 17;
             this.label1.Text = "Structure:";
             // 
-            // statusStrip
-            // 
-            this.statusStrip.Location = new System.Drawing.Point(0, 452);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(564, 22);
-            this.statusStrip.TabIndex = 18;
-            this.statusStrip.Text = "statusStrip1";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(564, 474);
-            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelStructure);
             this.Controls.Add(this.textBoxSearch);
@@ -266,7 +250,7 @@
             this.Controls.Add(this.labelDefn);
             this.Controls.Add(this.textBoxDefn);
             this.Controls.Add(this.listView1);
-            this.Controls.Add(this.ButtonSearch);
+            this.Controls.Add(this.SearchButton);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.textBoxName);
@@ -275,7 +259,7 @@
             this.Controls.Add(this.NonLinearBtn);
             this.Controls.Add(this.LinearBtn);
             this.Controls.Add(this.CategoryBox);
-          //  this.Name = "Form1";
+            this.Name = "Form1";
             this.Text = "WikiApp";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -293,9 +277,9 @@
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Button DeleteButton;
-        private System.Windows.Forms.Button ButtonSearch;
+        private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.ListView listView1;
-        private new System.Windows.Forms.ColumnHeader Name;
+        private System.Windows.Forms.ColumnHeader Name;
         private System.Windows.Forms.ColumnHeader Category;
         private System.Windows.Forms.TextBox textBoxDefn;
         private System.Windows.Forms.Label labelDefn;
@@ -305,7 +289,6 @@
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Label labelStructure;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.StatusStrip statusStrip;
     }
 }
 
