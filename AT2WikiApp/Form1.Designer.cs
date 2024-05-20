@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.CategoryBox = new System.Windows.Forms.ComboBox();
-            this.LinearBtn = new System.Windows.Forms.RadioButton();
-            this.NonLinearBtn = new System.Windows.Forms.RadioButton();
             this.labelCategory = new System.Windows.Forms.Label();
             this.AddButton = new System.Windows.Forms.Button();
             this.textBoxName = new System.Windows.Forms.TextBox();
@@ -47,8 +45,13 @@
             this.OpenButton = new System.Windows.Forms.Button();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.labelStructure = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.StructureBox = new System.Windows.Forms.GroupBox();
+            this.LinearBtn = new System.Windows.Forms.RadioButton();
+            this.NonLinearBtn = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStrip();
+            this.StructureBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // CategoryBox
@@ -63,39 +66,17 @@
             "Graphs",
             "Abstract",
             "Hash"});
-            this.CategoryBox.Location = new System.Drawing.Point(29, 145);
+            this.CategoryBox.Location = new System.Drawing.Point(33, 77);
             this.CategoryBox.Name = "CategoryBox";
             this.CategoryBox.Size = new System.Drawing.Size(130, 21);
             this.CategoryBox.TabIndex = 0;
             this.CategoryBox.Text = "Category";
             // 
-            // LinearBtn
-            // 
-            this.LinearBtn.AutoSize = true;
-            this.LinearBtn.Location = new System.Drawing.Point(29, 77);
-            this.LinearBtn.Name = "LinearBtn";
-            this.LinearBtn.Size = new System.Drawing.Size(54, 17);
-            this.LinearBtn.TabIndex = 1;
-            this.LinearBtn.TabStop = true;
-            this.LinearBtn.Text = "Linear";
-            this.LinearBtn.UseVisualStyleBackColor = true;
-            // 
-            // NonLinearBtn
-            // 
-            this.NonLinearBtn.AutoSize = true;
-            this.NonLinearBtn.Location = new System.Drawing.Point(29, 100);
-            this.NonLinearBtn.Name = "NonLinearBtn";
-            this.NonLinearBtn.Size = new System.Drawing.Size(77, 17);
-            this.NonLinearBtn.TabIndex = 2;
-            this.NonLinearBtn.TabStop = true;
-            this.NonLinearBtn.Text = "Non-Linear";
-            this.NonLinearBtn.UseVisualStyleBackColor = true;
-            // 
             // labelCategory
             // 
             this.labelCategory.AutoSize = true;
             this.labelCategory.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.labelCategory.Location = new System.Drawing.Point(26, 125);
+            this.labelCategory.Location = new System.Drawing.Point(30, 57);
             this.labelCategory.Name = "labelCategory";
             this.labelCategory.Size = new System.Drawing.Size(49, 13);
             this.labelCategory.TabIndex = 3;
@@ -117,6 +98,7 @@
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(137, 20);
             this.textBoxName.TabIndex = 5;
+            this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_DoubleClick);
             this.textBoxName.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxName_DoubleClick);
             // 
             // NameLabel
@@ -170,6 +152,7 @@
             // Category
             // 
             this.Category.Text = "Category";
+            this.Category.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Category.Width = 135;
             // 
             // textBoxDefn
@@ -234,15 +217,6 @@
             this.labelStructure.Size = new System.Drawing.Size(0, 13);
             this.labelStructure.TabIndex = 16;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 61);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Structure:";
-            // 
             // statusStrip
             // 
             this.statusStrip.Location = new System.Drawing.Point(0, 452);
@@ -251,13 +225,64 @@
             this.statusStrip.TabIndex = 18;
             this.statusStrip.Text = "statusStrip1";
             // 
+            // StructureBox
+            // 
+            this.StructureBox.Controls.Add(this.LinearBtn);
+            this.StructureBox.Controls.Add(this.NonLinearBtn);
+            this.StructureBox.Controls.Add(this.label3);
+            this.StructureBox.Location = new System.Drawing.Point(29, 131);
+            this.StructureBox.Name = "StructureBox";
+            this.StructureBox.Size = new System.Drawing.Size(134, 68);
+            this.StructureBox.TabIndex = 37;
+            this.StructureBox.TabStop = false;
+            this.StructureBox.Text = "StructureBox";
+            // 
+            // LinearBtn
+            // 
+            this.LinearBtn.AutoSize = true;
+            this.LinearBtn.Location = new System.Drawing.Point(6, 19);
+            this.LinearBtn.Name = "LinearBtn";
+            this.LinearBtn.Size = new System.Drawing.Size(54, 17);
+            this.LinearBtn.TabIndex = 19;
+            this.LinearBtn.TabStop = true;
+            this.LinearBtn.Text = "Linear";
+            this.LinearBtn.UseVisualStyleBackColor = true;
+            // 
+            // NonLinearBtn
+            // 
+            this.NonLinearBtn.AutoSize = true;
+            this.NonLinearBtn.Location = new System.Drawing.Point(6, 42);
+            this.NonLinearBtn.Name = "NonLinearBtn";
+            this.NonLinearBtn.Size = new System.Drawing.Size(77, 17);
+            this.NonLinearBtn.TabIndex = 20;
+            this.NonLinearBtn.TabStop = true;
+            this.NonLinearBtn.Text = "Non-Linear";
+            this.NonLinearBtn.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 19);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(0, 13);
+            this.label3.TabIndex = 34;
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Location = new System.Drawing.Point(0, 0);
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(564, 25);
+            this.toolStripStatusLabel1.TabIndex = 38;
+            this.toolStripStatusLabel1.Text = "toolStrip1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(564, 474);
+            this.Controls.Add(this.toolStripStatusLabel1);
+            this.Controls.Add(this.StructureBox);
             this.Controls.Add(this.statusStrip);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.labelStructure);
             this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.OpenButton);
@@ -272,12 +297,12 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.AddButton);
             this.Controls.Add(this.labelCategory);
-            this.Controls.Add(this.NonLinearBtn);
-            this.Controls.Add(this.LinearBtn);
             this.Controls.Add(this.CategoryBox);
-          //  this.Name = "Form1";
+            this.Name = "Form1";
             this.Text = "WikiApp";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.StructureBox.ResumeLayout(false);
+            this.StructureBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -286,8 +311,6 @@
         #endregion
 
         private System.Windows.Forms.ComboBox CategoryBox;
-        private System.Windows.Forms.RadioButton LinearBtn;
-        private System.Windows.Forms.RadioButton NonLinearBtn;
         private System.Windows.Forms.Label labelCategory;
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.TextBox textBoxName;
@@ -304,8 +327,12 @@
         private System.Windows.Forms.Button OpenButton;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Label labelStructure;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.GroupBox StructureBox;
+        private System.Windows.Forms.RadioButton LinearBtn;
+        private System.Windows.Forms.RadioButton NonLinearBtn;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ToolStrip toolStripStatusLabel1;
     }
 }
 

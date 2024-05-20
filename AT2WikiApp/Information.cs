@@ -9,21 +9,31 @@ using System.Xml.Linq;
 
 namespace AT2WikiApp
 {
-  
-        internal class Information : IComparable<Information>
-        {
+
+    public class Information : IComparable<Information>
+    {
         #region Private Attributes
 
         private string name;
-            private string category;
-            private string structure;
-            private string definition;
+        private string category;
+        private string structure;
+        private string definition;
 
         public string Name { get; internal set; }
         public string Category { get; internal set; }
         public string Structure { get; internal set; }
         public string Definition { get; internal set; }
 
+        //public string GetName() => Name;
+        //public string GetCategory() => Category;
+        //public string GetStructure() => Structure;
+        //public string GetDefinition() => Definition;
+
+        int IComparable<Information>.CompareTo(Information other)
+        {
+            throw new NotImplementedException();
+        }
+    
         #endregion
         #region Constructor 
         // Default constructor
@@ -114,6 +124,10 @@ namespace AT2WikiApp
             }
         }
 
+    }
+
+    public abstract class Class1
+    {
     }
 }
 

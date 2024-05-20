@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -14,9 +15,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using RadioButton = System.Windows.Forms.RadioButton;
 
 
 
@@ -29,7 +32,14 @@ namespace AT2WikiApp
         public Form1()
         {
             InitializeComponent();
+            
         }
+
+        private void textBoxName_DoubleClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+      
         private void Form1_Load(object sender, EventArgs e)
         {
             // Sort and display the ListView when the form is loaded
@@ -38,18 +48,11 @@ namespace AT2WikiApp
 
 
         List<Information> Wiki = new List<Information>();
+        private object nameTextBox;
 
         public object ListView1 { get; private set; }
 
-        class Program
-        {
-            static void Main()
-            {
-                Trace.Listeners.Clear();
-                Trace.Listeners.Add(new ConsoleTraceListener());
-            }
-        }
-
+      
 
 
 
@@ -64,13 +67,13 @@ namespace AT2WikiApp
         #region ADD EDIT DELETE
 
         private void AddButton_Click(object sender, EventArgs e)
+
         {
             // Check name in TextBox
             bool valid = ValidName(textBoxName.Text);
             // If name is NOT a duplicate
             if (valid)
             {
-
                 // Add new record
                 Information newInformation = new Information();
                 newInformation.SetName(textBoxName.Text);
@@ -79,93 +82,114 @@ namespace AT2WikiApp
                 newInformation.SetDefinition(textBoxDefn.Text);
                 Wiki.Add(newInformation);
 
-
                 //clear input values
                 Clear();
                 //set Focus
                 textBoxName.Focus();
                 //Display
                 DisplaySort();
-
             }
             else
             {
                 MessageBox.Show("Name already exists. Please enter a different name.");
-                // Optionally, you can clear the textbox or take other actions
             }
-
         }
-       
-
 
         private void EditButton_Click(object sender, EventArgs e)
+
+
+        //{
+        //    int selectedIndex = -1;
+        //    if (listView1.SelectedItems.Count > 0)
+        //    {
+        //        selectedIndex = listView1.SelectedIndices[0]; // Get the index of the selected item
+        //    }
+
+        //    if (selectedIndex >= 0 && selectedIndex < Wiki.Count) // Ensure the index is valid
+        //    {
+        //        // Create the updated item
+        //        Information updatedInfo = new Information();
+        //        updatedInfo.SetName(textBoxName.Text);
+        //        updatedInfo.SetCategory(CategoryBox.Text);
+        //        updatedInfo.SetStructure(GetRadioButton());
+        //        updatedInfo.SetDefinition(textBoxDefn.Text);
+
+        //        // Remove the old item from the list
+        //        Wiki.RemoveAt(selectedIndex);
+
+        //        // Add the updated item at the same index
+        //        Wiki.Insert(selectedIndex, updatedInfo);
+
+        //        // Refresh the ListView to reflect the changes
+        //        DisplaySort();
+        //        Clear();
+
+
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Please select an item to edit.");
+        //    }
+        //}
+
         {
-            if (listView1.SelectedItems.Count > 0) // Simplified condition
+            if (listView1.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listView1.SelectedItems[0];
                 int selectedIndex = selectedItem.Index;
 
                 if (selectedIndex >= 0 && selectedIndex < Wiki.Count)
                 {
-                    Information selectedInfo = Wiki[selectedIndex];
-                    textBoxName.Text = selectedInfo.GetName();
-                    CategoryBox.Text = selectedInfo.GetCategory();
-                    SetRadioButton(selectedIndex);
-                    textBoxDefn.Text = selectedInfo.GetDefinition();
+                    try
+                    {
+                        // Create the updated item
+                        Information updatedInfo = new Information();
+                        updatedInfo.SetName(textBoxName.Text);
+                        updatedInfo.SetCategory(CategoryBox.Text);
+                        updatedInfo.SetStructure(GetRadioButton());
+                        updatedInfo.SetDefinition(textBoxDefn.Text);
 
-                    UpdateListViewItem(selectedItem); // Assuming you refactor this part for clarity
+                        // Update the corresponding item in the Wiki list
+                        Wiki[selectedIndex] = updatedInfo;
 
-                    selectedInfo.SetName(textBoxName.Text.ToUpper());
-                    selectedInfo.SetCategory(CategoryBox.Text);
-                    selectedInfo.SetStructure(GetRadioButton());
-                    selectedInfo.SetDefinition(textBoxDefn.Text);
-
-                    DisplaySort();
-                    Clear();
-                    MessageBox.Show("Item updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Refresh the ListView to reflect the changes
+                        Clear();
+                        DisplaySort();
+                       
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occurred while updating the item: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Please select a valid item to edit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please select an item to edit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Please select an item to edit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 
-
-
-
         private void DeleteButton_Click_1(object sender, EventArgs e)
+
+
+
         {
-            // Check if an item is selected in the ListView
-            if (listView1.SelectedItems.Count > -1)
+            if (listView1.SelectedItems.Count > 0) // Corrected condition
             {
-                // Get the index of the selected item
                 int selectedIndex = listView1.SelectedItems[0].Index;
 
-                // Display a confirmation dialog box
                 DialogResult result = MessageBox.Show("Are you sure you want to delete this record?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                // If the user confirms deletion
                 if (result == DialogResult.Yes)
                 {
-                    // Remove the selected item from the ListView
                     listView1.Items.RemoveAt(selectedIndex);
-
-                    // Remove the corresponding item from wiki
                     Wiki.RemoveAt(selectedIndex);
-
-                    // Sort and display the ListView after deletion
                     DisplaySort();
                 }
             }
             else
             {
-                // If no item is selected, display a message to the user
                 MessageBox.Show("Please select a record to delete.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -174,15 +198,11 @@ namespace AT2WikiApp
 
 
 
-
-
-
-
         #endregion
         #region RadioButton
         private string GetRadioButton()
+       
         {
-            // Check which radio button is checked and return its value
             if (LinearBtn.Checked)
             {
                 return "Linear";
@@ -197,32 +217,6 @@ namespace AT2WikiApp
             }
         }
 
-        private void SetRadioButton(int item)
-        {
-            // Check if item index is within the range of the Wiki collection
-            if (item >= 0 && item < Wiki.Count)
-            {
-                // Get the structure string from the Information object at the specified index
-                string structure = Wiki[item].GetStructure();
-
-                // Set the radio button based on the retrieved structure
-                if (structure == "Linear")
-                {
-                    LinearBtn.Checked = true;
-                }
-                else if (structure == "Non-Linear")
-                {
-                    NonLinearBtn.Checked = true;
-                }
-            }
-            // Handle case when item index is out of range (optional)
-            else
-            {
-                // Optionally, you can clear the radio button selection
-                LinearBtn.Checked = false;
-                NonLinearBtn.Checked = false;
-            }
-        }
 
 
         // Highlight radio button based on index
@@ -245,6 +239,7 @@ namespace AT2WikiApp
         #endregion
         #region Clear DoubleClick-Clear
         private void Clear()
+        
         {
             textBoxName.Clear();
             CategoryBox.SelectedIndex = 0;
@@ -256,110 +251,117 @@ namespace AT2WikiApp
         //Double clICK cLEAR
         private void textBoxName_DoubleClick(object sender, MouseEventArgs e)
         {
-            //{
-            //    // Clear the TextBoxes
+            Clear();
+        }
+            //    // Clear the TextBboxes
             //    textBoxName.Clear();
             //    textBoxDefn.Clear();
-            //    // Assuming you have more TextBoxes, clear them as well
+
+
 
             //    // Clear the ComboBox
-            //    CategoryBox.SelectedIndex = -1; // Set to -1 to clear the selection
+            //    CategoryBox.Items.Clear();
 
-            //    // Clear the RadioButton
-            //    // Assuming you have a group of RadioButtons, you can loop through them and uncheck them
-            //    foreach (Control c in this.Controls)
-            //    {
-            //        if (c is RadioButton)
-            //        {
-            //            (c as RadioButton).Checked = false;
-            //        }
-            //    }
-            //}
-
-        }
-        #endregion
-        #region Display Sort
-        private void DisplaySort()
-        {  
-            // Sort the Wiki information by Name in alphabetical order
-            var sortedWiki = Wiki.OrderBy(info => info.GetName()).ToList();
-
-           
-            // Clear the ListView before repopulating it
-            listView1.Items.Clear();
-
-            // Add items to the ListView
-            foreach (var item in sortedWiki)
-            {
-                ListViewItem listViewItem = new ListViewItem(item.GetName());
-                listViewItem.SubItems.Add(item.GetStructure());
-                listViewItem.SubItems.Add(item.GetCategory());
-                listView1.Items.Add(listViewItem);
-            }
-        }
+            //// Clear the Radio button
+            //// Assuming LinearBtn and NonLinearBtn are your RadioButton controls
+            //LinearBtn.Checked = false;
+            //NonLinearBtn.Checked = false;
 
 
+
+
+            #endregion
+            #region Display Sort
+            private void DisplaySort()
+   
+    {
+        // Sort the Wiki information by Name in alphabetical order
+        var sortedWiki = Wiki.OrderBy(info => info.GetName()).ToList();
+
+        // Clear the ListView before repopulating it
+        listView1.Items.Clear();
+
+        // Add items to the ListView
+        foreach (var item in sortedWiki)
+        {
+            ListViewItem listViewItem = new ListViewItem(item.GetName());
+            listViewItem.SubItems.Add(item.GetStructure());
+            listViewItem.SubItems.Add(item.GetCategory());
+            listView1.Items.Add(listViewItem);
+        } 
+    }
         #endregion
         #region Search
-        private void SearchButton_Click(object sender, EventArgs e)
+
+
+
+      
+    private void SearchButton_Click(object sender, EventArgs e)
+    {
+        if (textBoxSearch.Text.Length > 0)
         {
-            string searchName = textBoxSearch.Text.ToUpper(); // Get search input and convert to uppercase
+            string searchName = textBoxSearch.Text.Trim();
 
-            // Perform binary search
-            int index = Wiki.FindIndex(info => info.GetName().ToUpper() == searchName);
+            Information searchInfo = new Information();
+            searchInfo.SetName(searchName);
 
-            if (index != -1)
+            DisplaySort();
+
+            var sortedWiki = Wiki.OrderBy(info => info.GetName()).ToList();
+
+            int found = sortedWiki.BinarySearch(searchInfo, new InformationNameComparer());
+
+            if (found >= 0)
             {
-                // Item found
-                ListViewItem item = listView1.Items[index];
+                listView1.SelectedItems.Clear();
+                listView1.Items[found].Selected = true;
+                listView1.Items[found].Focused = true;
+                listView1.EnsureVisible(found);
+                listView1.Focus();
 
-                // Highlight the item
-                item.Selected = true;
-                item.Focused = true;
-                
-                listView1.EnsureVisible(index);
+                textBoxName.Text = sortedWiki[found].GetName();
+                CategoryBox.Text = sortedWiki[found].GetCategory();
+                SetRadioButton(found);
+                textBoxDefn.Text = sortedWiki[found].GetDefinition();
 
-                // Populate input controls with associated details
-                textBoxName.Text = item.SubItems[0].Text;
-                CategoryBox.Text = item.SubItems.Count > 1 ? item.SubItems[1].Text : ""; 
-                                                                                         
-                textBoxDefn.Text = item.SubItems.Count > 3 ? item.SubItems[3].Text : ""; 
-
-                MessageBox.Show("Item found and highlighted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                toolStripStatusLabel1.Text = "Search found...";
             }
             else
             {
-                // Item not found
-                MessageBox.Show("Item not found.", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                toolStripStatusLabel1.Text = "Cannot find item.";
             }
 
-            // Clear search input
             textBoxSearch.Clear();
         }
+    }
+        private void SetRadioButton(int index)
+        {
+            if (index >= 0 && index < Wiki.Count)
+            {
+                string structure = Wiki[index].GetStructure();
+                if (structure == "Linear")
+                {
+                    LinearBtn.Checked = true;
+                }
+                else if (structure == "Non-Linear")
+                {
+                    NonLinearBtn.Checked = true;
+                }
+            }
+            else
+            {
+                LinearBtn.Checked = false;
+                NonLinearBtn.Checked = false;
+            }
+        }
 
-
-        //{
-        //    Information searchInfo = new Information();
-        //    // set bike model from textbox
-        //    searchInfo.SetName(textBoxSearch.Text);
-        //    // if found return 0
-        //    int found = Wiki.BinarySearch(searchInfo);
-        //    if (found >= 0)
-        //    {
-        //        listView1.SelectedItems.Clear();
-        //        listView1.Items[found].Selected = true;
-        //        listView1.Focus();
-        //        // Populate the textboxes with the selected information
-        //        textBoxName.Text = Wiki[found].GetName();
-        //        CategoryBox.Text = Wiki[found].GetCategory();
-        //        SetRadioButton(found);
-        //        textBoxDefn.Text = Wiki[found].GetDefinition();
-        //    }
-        //    else
-        //    {
-        //        statusStrip.Text = "cannot find item";
-        //    }
-        //}
+        public class InformationNameComparer : IComparer<Information>
+        {
+            public int Compare(Information x, Information y)
+            {
+                return string.Compare(x.GetName(), y.GetName(), StringComparison.OrdinalIgnoreCase);
+            }
+        }
 
 
         #endregion
@@ -393,6 +395,7 @@ namespace AT2WikiApp
                             }
                         }
                     }
+                    Clear();
                     DisplaySort();
                 }
                 catch (IOException ex)
@@ -448,7 +451,7 @@ namespace AT2WikiApp
 
         // mouse click needs to be fixed
 
-
+        //display textboxes
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count > 0)
@@ -465,13 +468,21 @@ namespace AT2WikiApp
                     // Display the information in appropriate textboxes and combo
                     textBoxName.Text = selectedInformation.GetName();
                     CategoryBox.Text = selectedInformation.GetCategory();
-                    // You need to implement GetRadioButton method to get the selected radio button value
-                    // StructureBox.Text = selectedInformation.GetStructure(); 
+                    // Assuming GetRadioButtonValue() returns the selected radio button value
+                    string radioButtonValue = GetRadioButtonValue(selectedInformation.GetStructure());
+                    RadioButton rb = new RadioButton();
+                    rb.Text = radioButtonValue;
+                    StructureBox.Controls.Add(rb);
                     textBoxDefn.Text = selectedInformation.GetDefinition();
                 }
             }
         }
 
+
+        private string GetRadioButtonValue(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
-    
+

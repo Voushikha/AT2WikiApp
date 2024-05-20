@@ -2,11 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AT2WikiApp
 {
-    internal class Class1
+    public class Wiki
     {
+        public Wiki()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        internal static object OrderBy(Func<object, object> value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Method()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
