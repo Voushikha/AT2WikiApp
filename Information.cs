@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+using System;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
-namespace AT2WikiApp
+namespace AT2
 {
-
-    public class Information : IComparable<Information>
+    public class Information : IComparable<Information>, INotifyPropertyChanged
     {
         #region Private Attributes
 
@@ -19,116 +13,122 @@ namespace AT2WikiApp
         private string structure;
         private string definition;
 
-        public string Name { get; internal set; }
-        public string Category { get; internal set; }
-        public string Structure { get; internal set; }
-        public string Definition { get; internal set; }
+        #endregion
 
-        //public string GetName() => Name;
-        //public string GetCategory() => Category;
-        //public string GetStructure() => Structure;
-        //public string GetDefinition() => Definition;
+        #region Public Properties
 
-        int IComparable<Information>.CompareTo(Information other)
+        public string Name
         {
-            throw new NotImplementedException();
-        }
-    
-        #endregion
-        #region Constructor 
-        // Default constructor
-        public Information()
-            { }
-
-            // Constructor with name parameter
-            public Information(string newName)
+            get => name;
+            set
             {
-                name = newName;
-            }
-     //   Constructor with name and category parameters
-        public Information(string newName, string newCategory)
-            {
-                name = newName;
-                category = newCategory;
-            }
-        #endregion
-        #region Assessor Methods
-        public string GetName()
-            {
-                return name;
-            }
-
-            public void SetName(string InfoName)
-            {
-                name = InfoName;
-            }
-
-            public string GetCategory()
-            {
-                return category;
-            }
-
-            public void SetCategory(string InfoCategory)
-            {
-                category = InfoCategory;
-            }
-
-            public string GetStructure()
-            {
-                return structure;
-            }
-
-            public void SetStructure(string InfoStructure)
-            {
-                structure = InfoStructure;
-            }
-
-            public string GetDefinition()
-            {
-                return definition;
-            }
-
-            public void SetDefinition(string InfoDefinition)
-            {
-                definition = InfoDefinition;
-            }
-
-
-        #endregion
-        #region Overloaded CompareTo for the search and sort.
-        public int CompareTo(Information other)
-            {
-                return name.CompareTo(other.name);
-            }
-        #endregion
-        public class UserDefinedFields : INotifyPropertyChanged
-        {
-            private string name;
-            public string NAME
-            {
-                get => name;
-                set
+                if (name != value)
                 {
-                    if (name != value)
-                    {
-                        name = value;
-                        OnPropertyChanged(nameof(NAME));
-                    }
+                    name = value;
+                    OnPropertyChanged(nameof(Name));
                 }
             }
+        }
 
-            public event PropertyChangedEventHandler PropertyChanged;
-            protected virtual void OnPropertyChanged(string propertyName)
+        public string Category
+        {
+            get => category;
+            set
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                if (category != value)
+                {
+                    category = value;
+                    OnPropertyChanged(nameof(Category));
+                }
             }
         }
 
-    }
+        public string Structure
+        {
+            get => structure;
+            set
+            {
+                if (structure != value)
+                {
+                    structure = value;
+                    OnPropertyChanged(nameof(Structure));
+                }
+            }
+        }
 
-    public abstract class Class1
-    {
+        public string Definition
+        {
+            get => definition;
+            set
+            {
+                if (definition != value)
+                {
+                    definition = value;
+                    OnPropertyChanged(nameof(Definition));
+                }
+            }
+        }
+
+        #endregion
+
+        #region Constructor
+
+        // Default constructor
+        public Information() { }
+
+        // Constructor with name parameter
+        public Information(string newName)
+        {
+            name = newName;
+        }
+
+        // Constructor with name and category parameters
+        public Information(string newName, string newCategory)
+        {
+            name = newName;
+            category = newCategory;
+        }
+
+        #endregion
+
+        #region Assessor Methods
+
+        public string GetName() => name;
+
+        public void SetName(string InfoName) => Name = InfoName;
+
+        public string GetCategory() => category;
+
+        public void SetCategory(string InfoCategory) => Category = InfoCategory;
+
+        public string GetStructure() => structure;
+
+        public void SetStructure(string InfoStructure) => Structure = InfoStructure;
+
+        public string GetDefinition() => definition;
+
+        public void SetDefinition(string InfoDefinition) => Definition = InfoDefinition;
+
+        #endregion
+
+        #region Overloaded CompareTo for the search and sort
+
+        public int CompareTo(Information other)
+        {
+            return string.Compare(name, other.name, StringComparison.OrdinalIgnoreCase);
+        }
+
+        #endregion
+
+        #region INotifyPropertyChanged Implementation
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
     }
 }
-
-
